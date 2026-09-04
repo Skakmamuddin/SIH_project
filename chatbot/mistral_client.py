@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 
+import streamlit as st
 from dotenv import load_dotenv
 from mistralai.client import Mistral
 
@@ -9,7 +10,7 @@ load_dotenv(
 )
 
 def ask_mistral(messages):
-    api_key = os.getenv("MISTRAL_API_KEY")
+    api_key = os.getenv("MISTRAL_API_KEY") or st.secrets.get("MISTRAL_API_KEY", "")
 
     if not api_key:
         return "Mistral AI is not configured. Add MISTRAL_API_KEY to the .env file for general questions."
