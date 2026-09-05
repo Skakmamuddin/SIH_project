@@ -24,7 +24,7 @@ def ask_mistral(messages):
 
     try:
         response = client.chat.completions.create(
-            model="llama3-8b-8192",  # এটি Groq-এর ভেতরের Mistral মডেল, যা অনেক ফাস্ট
+            model="llama-3.1-8b-instant",  # এটি Groq-এর ভেতরের Mistral মডেল, যা অনেক ফাস্ট
             messages=messages
         )
     except Exception as error:
