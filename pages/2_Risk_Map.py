@@ -46,12 +46,12 @@ map_column, insight_column = st.columns([2.1, 1])
 
 with map_column:
 	st.subheader("Live risk location")
-	risk_map = folium.Map(location=[latitude, longitude], zoom_start=11, tiles="CartoDB positron")
-	folium.TileLayer(
+	risk_map = folium.Map(
+		location=[latitude, longitude],
+		zoom_start=11,
 		tiles="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-		attr="Esri World Imagery",
-		name="Satellite"
-	).add_to(risk_map)
+		attr="Esri World Imagery"
+	)
 	folium.Circle(
 		[latitude, longitude], radius=5000, color="#315b35",
 		fill=True, fill_color="#8cae78", fill_opacity=0.18
