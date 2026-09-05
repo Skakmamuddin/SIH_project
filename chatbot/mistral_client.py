@@ -24,7 +24,7 @@ def ask_mistral(messages):
 
     try:
         response = client.chat.complete(
-            model="mistral-small-latest",
+            model="open-mixtral-8x7b",
             messages=messages
         )
     except Exception as error:
