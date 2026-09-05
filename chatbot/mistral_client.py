@@ -10,10 +10,15 @@ load_dotenv(
 )
 
 def ask_mistral(messages):
-    api_key = os.getenv("MISTRAL_API_KEY") or st.secrets.get("MISTRAL_API_KEY", "")
+    api_key = os.getenv("MISTRAL_API_KEY", "")
+    if not api_key:
+        try:
+            api_key = st.secrets.get("MISTRAL_API_KEY", "")
+        except Exception:
+            api_key = ""
 
     if not api_key:
-        return "Mistral AI is not configured. Add MISTRAL_API_KEY to the .env file for general questions."
+        return "Mistral AI is not configured. Add MISTRAL_API_KEY to Streamlit Secrets."
 
     client = Mistral(api_key=api_key)
 
@@ -22,7 +27,10 @@ def ask_mistral(messages):
             model="mistral-small-latest",
             messages=messages
         )
-    except Exception:
-        return "The AI assistant is temporarily unavailable. Please try again shortly or use the weather and risk tools."
+    except Exception as error:
+        return (
+            "The AI assistant request failed: "
+            f"{type(error).__name__}: {error}"
+        )
 
     return response.choices[0].message.content
