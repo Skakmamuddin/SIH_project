@@ -10,4 +10,4 @@ streamlit-folium
 mistralai
 python-dotenv
 tavily-python
-groq
+google-genai
