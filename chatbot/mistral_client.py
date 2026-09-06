@@ -1,4 +1,5 @@
 import os
+import time
 from pathlib import Path
 
 import streamlit as st
@@ -33,12 +34,31 @@ def ask_mistral(messages):
 
             prompt += f"{role.upper()}: {content}\n"
 
-        response = client.models.generate_content(
-            model="gemini-3.6-flash",
-            contents=prompt
-        )
+        # Retry up to 3 times if Gemini is overloaded
+        for attempt in range(3):
 
-        return response.text
+            try:
+                response = client.models.generate_content(
+                    model="gemini-3.6-flash",
+                    contents=prompt
+                )
+
+                return response.text
+
+            except Exception as error:
+
+                error_text = str(error)
+
+                if "503" in error_text or "UNAVAILABLE" in error_text:
+                    time.sleep(5 * (attempt + 1))
+                    continue
+
+                raise error
+
+        return (
+            "Gemini servers are currently experiencing high demand. "
+            "Please try again in a few moments."
+        )
 
     except Exception as error:
         return (
