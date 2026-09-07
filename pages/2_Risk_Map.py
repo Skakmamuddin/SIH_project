@@ -52,6 +52,25 @@ with map_column:
 		tiles="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
 		attr="Esri World Imagery"
 	)
+
+	if risk_score is None:
+
+        circle_color = "gray"
+        fill_color = "gray"
+
+    elif risk_score < 30:
+
+        circle_color = "green"
+        fill_color = "green"
+
+    elif risk_score < 70:
+
+        circle_color = "orange"
+        fill_color = "orange"
+
+    else:
+        circle_color = "red"
+        fill_color = "red"
 	folium.Circle(
 		[latitude, longitude], radius=5000, color="#315b35",
 		fill=True, fill_color="#8cae78", fill_opacity=0.18
