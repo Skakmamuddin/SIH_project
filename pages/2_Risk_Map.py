@@ -54,17 +54,14 @@ with map_column:
 	)
 
 	if risk_score is None:
-
-        circle_color = "gray"
+		circle_color = "gray"
         fill_color = "gray"
 
     elif risk_score < 30:
-
         circle_color = "green"
         fill_color = "green"
 
     elif risk_score < 70:
-
         circle_color = "orange"
         fill_color = "orange"
 
