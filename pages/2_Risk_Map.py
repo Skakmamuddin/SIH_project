@@ -19,6 +19,10 @@ longitude = st.session_state.get("longitude", 93.5)
 
 st.title("🗺️ Risk Intelligence Map")
 st.caption(f"Location intelligence for {user['name']} • {latitude:.4f}, {longitude:.4f}")
+st.info(
+    "🖱️ Click anywhere on the map to update the monitored location."
+)
+
 
 weather = get_weather(latitude, longitude)
 terrain = get_terrain(latitude, longitude)
@@ -94,7 +98,21 @@ with map_column:
 	).add_to(risk_map)
 	
 	folium.LayerControl().add_to(risk_map)
-	st_folium(risk_map, width=None, height=560)
+		
+	map_data = st_folium(
+		risk_map,
+        width=None,
+        height=560
+	)
+	if map_data and map_data.get("last_clicked"):
+
+        clicked_lat = map_data["last_clicked"]["lat"]
+        clicked_lon = map_data["last_clicked"]["lng"]
+
+        st.session_state["latitude"] = clicked_lat
+        st.session_state["longitude"] = clicked_lon
+
+        st.rerun()
 
 with insight_column:
 	st.subheader("Place profile")
