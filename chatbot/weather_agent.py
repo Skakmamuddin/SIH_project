@@ -43,7 +43,8 @@ def weather_response(
         )
 
     return f"""
-🌦️ Current Weather
+    
+🌈 Current Weather
 
 Temperature: {weather['temperature']} °C
 
