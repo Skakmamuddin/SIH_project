@@ -6,10 +6,12 @@ import streamlit as st
 def get_weather(latitude, longitude):
 
     url = (
-        "https://api.open-meteo.com/v1/forecast"
-        f"?latitude={latitude}"
-        f"&longitude={longitude}"
-        "&current=temperature_2m,relative_humidity_2m,rain,wind_speed_10m"
+    "https://api.open-meteo.com/v1/forecast"
+    f"?latitude={latitude}"
+    f"&longitude={longitude}"
+    "&current=temperature_2m,relative_humidity_2m,rain,wind_speed_10m"
+    "&daily=temperature_2m_max,temperature_2m_min,precipitation_sum"
+    "&timezone=auto"
     )
 
     try:
