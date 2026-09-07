@@ -24,10 +24,15 @@ def get_weather(latitude, longitude):
         current = data["current"]
 
         return {
-            "temperature": current["temperature_2m"],
-            "humidity": current["relative_humidity_2m"],
-            "rain": current["rain"],
-            "wind_speed": current["wind_speed_10m"]
+    "temperature": current["temperature_2m"],
+    "humidity": current["relative_humidity_2m"],
+    "rain": current["rain"],
+    "wind_speed": current["wind_speed_10m"],
+
+    "forecast_dates": data["daily"]["time"],
+    "forecast_rain": data["daily"]["precipitation_sum"],
+    "forecast_temp_max": data["daily"]["temperature_2m_max"],
+    "forecast_temp_min": data["daily"]["temperature_2m_min"]
         }
 
     except Exception as e:
