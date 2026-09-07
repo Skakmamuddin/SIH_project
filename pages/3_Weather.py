@@ -158,3 +158,46 @@ else:
     st.info(
         "Forecast weather data unavailable."
     )
+
+
+st.markdown(
+    "<div class='section-kicker'>06 <span>Forecast Landslide Risk</span></div>",
+    unsafe_allow_html=True
+)
+
+if weather and "forecast_rain" in weather:
+
+    risk_rows = []
+
+    for i in range(len(weather["forecast_dates"])):
+
+        rain = weather["forecast_rain"][i]
+
+        if rain >= 100:
+            risk = "🔴 High"
+
+        elif rain >= 50:
+            risk = "🟠 Moderate"
+
+        else:
+            risk = "🟢 Low"
+
+        risk_rows.append({
+            "Date": weather["forecast_dates"][i],
+            "Forecast Rainfall (mm)": rain,
+            "Risk Level": risk
+        })
+
+    risk_df = pd.DataFrame(risk_rows)
+
+    st.dataframe(
+        risk_df,
+        use_container_width=True,
+        hide_index=True
+    )
+
+else:
+
+    st.info(
+        "Forecast risk data unavailable."
+    )
