@@ -1240,3 +1240,14 @@ div[data-testid="stElementContainer"].st-key-login_continue_button button {
     background-color: transparent !important;
     color: var(--ink) !important;
 }
+
+/* Force assistant message text black */
+
+[data-testid="stAppViewContainer"] > .main:has(.assistant-workspace-anchor)
+div[data-testid="stChatMessage"]:not(:has([data-testid="stChatMessageAvatarUser"]))
+[data-testid="stChatMessageContent"],
+[data-testid="stAppViewContainer"] > .main:has(.assistant-workspace-anchor)
+div[data-testid="stChatMessage"]:not(:has([data-testid="stChatMessageAvatarUser"]))
+[data-testid="stChatMessageContent"] * {
+    color: #253222 !important;
+}
